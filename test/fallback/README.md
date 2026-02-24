@@ -46,3 +46,9 @@ Attacker gains full control with almost zero cost and can immediately drains all
 - Fallback functions are common vectors for privilege escalation if not properly restricted.
 - Minimal checks can be bypassed easily.
 - Never allow external calls in fallback without strong access control
+
+[Exploit Test Code](FallbackAttack.t.sol)
+[Broadcast Script](../../script/fallback/FallbackAttack.s.sol)
+
+
+This is a full Exploit PoC: reproduced locally with Foundry, broadcasted on Sepolia testnet.
