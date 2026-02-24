@@ -1,0 +1,39 @@
+# Foundry artifacts
+out/
+cache/
+broadcast/
+
+# Logs  Foundry
+*.log
+forge-*
+
+# Library
+
+lib/
+
+.env
+.env.local
+.env.example
+.env.*
+*.env
+
+# VS Code
+.vscode/
+.idea/
+*.swp
+*.swo
+
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# WSL/Windows
+*.tmp
+*.bak
+~*
+
+*.t.sol~ 
+*.sol~
+anvil.*
+cast.*
+forge.*
