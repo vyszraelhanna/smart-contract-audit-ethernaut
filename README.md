@@ -4,9 +4,9 @@ Personal project solving Ethernaut levels (OpenZeppelin) using Foundry PoCs. Foc
 
 ## Solved Levels
 
-- [Fallback](test/fallback/README.md) -> Ownership takeover via permissive receive();
+- [Fallback](docs/fallback/README.md) -> Ownership takeover via permissive receive();
 
-- [Fallout](test/fallout/README.md) -> Fake constructor ('Fal1out') allowing anyone to become owner.
+- [Fallout](docs/fallout/README.md) -> Fake constructor ('Fal1out') allowing anyone to become owner.
 
 ## General Vulnerability & Risk Report
 Here is a summary of the main bugs found in the solved levels:
