@@ -45,7 +45,7 @@ Attacker gains full control of the contract with a single call.
 - Code review should catch naming mismatches between contract and "constructor".
 
 ## Files
-- [Exploit Test Code](../../test/fallout/FalloutAttack.t.sol)
+- [Exploit Test Code](../../test/fallout/FalloutTest.t.sol)
 - [Broadcast Script](../../script/fallout/FalloutAttack.s.sol)
 
 This is a full Exploit PoC: reproduced locally with Foundry, broadcasted on Sepolia testnet.

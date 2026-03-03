@@ -47,7 +47,7 @@ Attacker gains full control with almost zero cost and can immediately drains all
 - Minimal checks can be bypassed easily.
 - Never allow external calls in fallback without strong access control
 
-[Exploit Test Code](../../test/fallback/FallbackAttack.t.sol)
+[Exploit Test Code](../../test/fallback/FallbackTest.t.sol)
 [Broadcast Script](../../script/fallback/FallbackAttack.s.sol)
 
 
