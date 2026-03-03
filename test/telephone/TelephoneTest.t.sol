@@ -23,7 +23,7 @@ contract TelephoneTest is Test {
     function test_attack() public {
         vm.prank(attacker);
         telephoneAttack.attack(attacker);
+        assertEq(telephone.owner(), attacker);
     }
 }
 
-feat: add Telephone level contract, attack, script and test.
