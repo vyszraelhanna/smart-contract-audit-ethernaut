@@ -1,7 +1,7 @@
 # Coin Flip Level - Exploit PoC (Proof of Concept)
 
 ## Overview
-The contract uses the blockhash to generate a "random" number, this is actually not generating a random number, instead it's an easy number to find out, this is because the blockhash is public and can be seen by **anyone**.
+The contract relies on `blockhash` to generate a pseudo-random number. This approach does not provide true randomness, as `blockhash`is a public value accessible to **anyone** on the blockchain, making the outcome fully predictable.
 
 
 ## Vulnerabilities Highlighted 
@@ -13,7 +13,7 @@ The contract uses the blockhash to generate a "random" number, this is actually 
         }
 
         lastHash = blockValue;
-        uint256 coinFlip = blockValue / FACTOR; // Critical: anyone can see the blockValue
+        uint256 coinFlip = blockValue / FACTOR; // Critical: Deterministic value, predictable by anyone.
         bool side = coinFlip == 1 ? true : false; 
 
         if (side == _guess) {
@@ -28,14 +28,15 @@ The contract uses the blockhash to generate a "random" number, this is actually 
 ```
 ## Vulnerability Explained 
 - Type: Predictable randomness via public blockhash.
-- Root Cause: The current blockhash can be checked by anyone and the next blockhash as well, it means that anyone with this information can calculate the correct number and bypass the requirements.
+- Root Cause: The blockhash of the previous block is a deterministic and publicly accessible value. Any contract or actor can replicate the same calculation, making it possible to predict the correct outcome before submitting the guess.
 
 - Severity: High
-Attacker can predict every flip outcome and reach consecutiveWins = 10 with 100% success rate.
+Attacker can predict every flip outcome and reach **consecutiveWins = 10 with** 100% success rate.
 
 ### Steps of the Exploit PoC
 
-1- Call attack() function from the `CoinFlipAttack` contract multiple times.
+1- Deploy the **CoinFlipAttack** contract pointing to the target instance.
+2- Call **attack()** multiple times (once per block) until **consecutiveWins** reaches 10.
 
 
 #### Evidence 
@@ -44,6 +45,7 @@ Attacker can predict every flip outcome and reach consecutiveWins = 10 with 100%
 
 - Tests passing with assertions: 
     -  assertEq(coinFlip.consecutiveWins(), 10);
+
     ![alt text](image.png)
 
 ##### Real Testnet (Sepolia)
@@ -51,16 +53,16 @@ Attacker can predict every flip outcome and reach consecutiveWins = 10 with 100%
 - [Attack Contract Adddress:](https://sepolia.etherscan.io/address/0x09AABab8150e95D5ed5a7b840cF1256e125C5f16)
 
 ## Recommended Mitigation
-- Use an off-chain oracle service like - [Chainlink VRF():](https://docs.chain.link/vrf)
+- Use a verifiable off-chain randomness solution such as [Chainlink VRF():](https://docs.chain.link/vrf)
 
 ## Lessons Learned
 
-- We must never use a public value to determine or calculate a random value.
-- Always use the off-chain oracles or on-chain VRF solutions to generate random numbers.
+- On-chain values such as **blockhash**,**block.time** and **block.number** must never be used as sources of randomness.
+- Always rely on off-chain oracles or on-chain VRF solutions for unpredictable and tamper-resistant random number generation.
 
 ## Files
 - [Attacker Contract Code](../../src/coinFlip/CoinFlipAttack.sol)
 - [Exploit Test Code](../../test/coinFlip/CoinFlipTest.t.sol)
 - [Broadcast Script](../../script/coinFlip/CoinFlipComplete.s.sol)
 
-This is a full Exploit PoC: reproduced locally with Foundry, broadcasted on Sepolia testnet.
+This is a full Exploit PoC: Reproduced locally with Foundry ans broadcasted on Sepolia testnet.
