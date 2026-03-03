@@ -8,6 +8,8 @@ Personal project solving Ethernaut levels (OpenZeppelin) using Foundry PoCs. Foc
 
 - [Fallout](docs/fallout/README.md) -> Fake constructor ('Fal1out') allowing anyone to become owner.
 
+- [Coin Flip](docs/coinFlip/README.md) -> The contract relies on blockhash to generate a pseudo-random number.
+
 ## General Vulnerability & Risk Report
 Here is a summary of the main bugs found in the solved levels:
 
@@ -15,6 +17,7 @@ Here is a summary of the main bugs found in the solved levels:
 | ----- | ----- | ----- | ----- | ----------------- |
 |Fallback | Permissive receive() | High | Ownership takeover with 1 wei + full drain | Remove or protect  receive(). |
 |Fallout | "Fal1out" function ( typo ) | High | Anyone can become owner and drain funds | Use `constructor()` instead of a function. 
+|Coin Flip | Blockhash to generate a pseudo-random number | High | `blockhash`is a public value accessible to **anyone** on the blockchain, making the outcome fully predictable. | Always rely on off-chain oracles or on-chain VRF solutions for unpredictable and tamper-resistant random number generation. 
 
 
 For full details (PoC, exploit steps, on-chain), click in the links above.
