@@ -10,6 +10,8 @@ Personal project solving Ethernaut levels (OpenZeppelin) using Foundry PoCs. Foc
 
 - [Coin Flip](docs/coinFlip/README.md) -> The contract relies on blockhash to generate a pseudo-random number.
 
+- [Telephone](docs/telephone/README.md) -> The contract relies only in the check `tx.origin != msg.sender` for access verification.
+
 ## General Vulnerability & Risk Report
 Here is a summary of the main bugs found in the solved levels:
 
@@ -18,6 +20,7 @@ Here is a summary of the main bugs found in the solved levels:
 |Fallback | Permissive receive() | High | Ownership takeover with 1 wei + full drain | Remove or protect  receive(). |
 |Fallout | "Fal1out" function ( typo ) | High | Anyone can become owner and drain funds | Use `constructor()` instead of a function. 
 |Coin Flip | Blockhash to generate a pseudo-random number | High | `blockhash`is a public value accessible to **anyone** on the blockchain, making the outcome fully predictable. | Always rely on off-chain oracles or on-chain VRF solutions for unpredictable and tamper-resistant random number generation. 
+|Telephone| Ownership takeover via intermediary contract call. | Hight | The contract has a function called `changeOwner()` that allows ownership to be transferred to anyone, as long as the call comes from an intermediary contract | Never rely on `tx.origin` for access control, as any intermediary contract can bypass it.
 
 
 For full details (PoC, exploit steps, on-chain), click in the links above.
