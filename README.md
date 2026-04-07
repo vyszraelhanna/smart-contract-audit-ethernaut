@@ -12,7 +12,7 @@ Personal project solving Ethernaut levels (OpenZeppelin) using Foundry PoCs. Foc
 
 - [Telephone](docs/telephone/README.md) -> The contract relies only in the check `tx.origin != msg.sender` for access verification.
 
-- [Token](docs/token/README.md) -> The contract relies only in the check `tx.origin != msg.sender` for access verification.
+- [Token](docs/token/README.md) -> The function does not validate if `_value` is greater than `balances[msg.sender]`. When a `uint256`goes below zero, it wraps around to `type(uint256).max`, giving the attacker an enormous balance.
 
 - [Vault](docs/vault/README.md) -> The vault contract has a property `password` marked as `private`.
 
