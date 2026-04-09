@@ -16,6 +16,8 @@ Personal project solving Ethernaut levels (OpenZeppelin) using Foundry PoCs. Foc
 
 - [Vault](docs/vault/README.md) -> The vault contract has a property `password` marked as `private`.
 
+- [King](docs/king/README.md) -> n attacker can permanently block the game, preventing anyone from reclaiming kingship
+
 ## General Vulnerability & Risk Report
 Here is a summary of the main bugs found in the solved levels:
 
