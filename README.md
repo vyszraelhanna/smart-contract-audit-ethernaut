@@ -28,8 +28,8 @@ Here is a summary of the main bugs found in the solved levels:
 |Coin Flip | Blockhash to generate a pseudo-random number | High | `blockhash`is a public value accessible to **anyone** on the blockchain, making the outcome fully predictable. | Always rely on off-chain oracles or on-chain VRF solutions for unpredictable and tamper-resistant random number generation. 
 |Telephone| Ownership takeover via intermediary contract call. | Hight | The contract has a function called `changeOwner()` that allows ownership to be transferred to anyone, as long as the call comes from an intermediary contract | Never rely on `tx.origin` for access control, as any intermediary contract can bypass it.
 |Token | Integer Underflow. | High | The function does not validate if `_value` is greater than `balances[msg.sender]`. When a `uint256` goes below zero, it wraps around to `type(uint256).max`, giving the attacker an enormous balance. | In older versions (`^0.6.0 ` and below), always use OpenZeppelin's SafeMath library
-|Vault| Private storage variable readable on-chain via eth_getStorageAt | Hight | Anyone can read the password directly from the storage and call `unlock()` with the correct value, unlocking the contract without authorization.
-|King| Denial of Service (DoS) | Hight |An attacker can permanently block the game, preventing anyone from reclaiming kingship.
+|Vault| Private storage variable readable on-chain via eth_getStorageAt | Hight | Anyone can read the password directly from the storage and call `unlock()` with the correct value, unlocking the contract without authorization. | Never store sensitive data on-chain, even if marked as `private`. The EVM storage is publicly accessible.
+|King| Denial of Service (DoS) | Hight |An attacker can permanently block the game, preventing anyone from reclaiming kingship. | replace `transfer()` with the pull payment pattern, instead of pushing ETH to the previous king, let them withdraw it themselves
 
 
 
